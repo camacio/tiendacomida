@@ -8,43 +8,43 @@ import com.backend.tiendacomida.model.Categoria;
 
 public interface AlimentoService {
 	
-	void crearPlato(Alimento plato);
+	void crearAlimento(Alimento alimento);
 	
-	void crearVariosPlatos(List<Alimento> comida);
+	void crearVariosAlimentos(List<Alimento> alimentos);
 
-	String obtenerUnPlatoPorId(Long id);
+	Alimento obtenerUnAlimentoPorId(Long id);
 	
-	String obtenerPrimerPlato();
+	Alimento obtenerPrimerAlimento();
 	
 	List<Alimento> obtenerTodos();
 	
-	int obtenerNumeroTotalPlatos();
+	int obtenerNumeroTotalAlimentos();
 	
-	String obtenerCategoriaPlatoPorNombre(String nombre);
+	Categoria obtenerCategoriaAlimentoPorNombre(String nombre);
 	
 	 List<Categoria> obtenerTodasCategorias();
 	
-	double obtenerPrecioPlatoPorId(Long id);
+	double obtenerPrecioAlimentoPorId(Long id);
 	
-	double obtenerMediaPrecioTodosPlatos();
+	double obtenerMediaPrecioTodosAlimentos();
 	
-	double obtenerPrecioMininoPlato();
+	double obtenerPrecioMininoAlimento();
 	
-	double obtenerPrecioMaximoPlato();
+	double obtenerPrecioMaximoAlimento();
 	
-	double obtenerPrecioTotalTodosPlatos();
+	double obtenerPrecioTotalTodosAlimentos();
 	
-	LocalDate obtenerFechaCaducidadPlatoPorId(Long id);
+	LocalDate obtenerFechaCaducidadAlimentoPorId(Long id);
 	
-	void actualizarPlato(Alimento plato);
+	void actualizarAlimento(Alimento alimento);
 	
-	void eliminarPlatoPorId(Long id);
+	void eliminarAlimentoPorId(Long id);
 	
-	void eliminarPlato(Alimento plato);
+	void eliminarAlimento(Alimento alimento);
 	
-	void eliminarTodosLosPlatos();
+	void eliminarTodosLosAlimentos();
 	
-	List<Alimento> ordenarPlatos();
+	List<Alimento> ordenarAlimentos();
 	
-	List<Alimento> desordenarPlatos();
+	List<Alimento> desordenarAlimentos();
 }

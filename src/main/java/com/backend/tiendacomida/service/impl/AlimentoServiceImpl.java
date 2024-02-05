@@ -18,22 +18,22 @@ public class AlimentoServiceImpl implements AlimentoService {
 	private AlimentoRepository repository;
 	
 	@Override
-	public void crearPlato(Alimento plato) {
-		Objects.requireNonNull(plato);
+	public void crearAlimento(Alimento alimento) {
+		Objects.requireNonNull(alimento);
 		
-		repository.save(plato);
+		repository.save(alimento);
 	}
 
 	@Override
-	public String obtenerUnPlatoPorId(Long id) {
+	public Alimento obtenerUnAlimentoPorId(Long id) {
 		Objects.requireNonNull(id);
 		
-		return repository.findById(id).get().getNombre();
+		return repository.findById(id).get();
 	}
 
 	@Override
-	public String obtenerPrimerPlato() {
-		return repository.findAll().stream().findFirst().get().getNombre();
+	public Alimento obtenerPrimerAlimento() {
+		return repository.findAll().stream().findFirst().get();
 	}
 
 	@Override
@@ -42,100 +42,125 @@ public class AlimentoServiceImpl implements AlimentoService {
 	}
 
 	@Override
-	public String obtenerCategoriaPlatoPorNombre(String nombre) {
+	public Categoria obtenerCategoriaAlimentoPorNombre(String nombre) {
 		Objects.requireNonNull(nombre);
 		
-		return repository.findAll().stream().filter(p -> p.getNombre().equalsIgnoreCase(nombre)).toString();
+		return repository.findAll().stream()
+				.filter(p -> p.getNombre().equalsIgnoreCase(nombre))
+				.findFirst()
+				.get()
+				.getCategoria();
 	}
 
 	@Override
 	public List<Categoria> obtenerTodasCategorias() {
-		return repository.findAll().stream().map(p -> p.getCategoria()).collect(Collectors.toList());
+		return repository.findAll()
+				.stream()
+				.map(p -> p.getCategoria())
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public double obtenerPrecioPlatoPorId(Long id) {
+	public double obtenerPrecioAlimentoPorId(Long id) {
 		return (int) repository.findById(id).get().getPrecio();
 	}
 
 	@Override
-	public double obtenerMediaPrecioTodosPlatos() {
-		return repository.findAll().stream().mapToDouble(p -> p.getPrecio()).average().getAsDouble();
+	public double obtenerMediaPrecioTodosAlimentos() {
+		return repository.findAll().stream()
+				.mapToDouble(p -> p.getPrecio())
+				.average()
+				.getAsDouble();
 	}
 
 	@Override
-	public LocalDate obtenerFechaCaducidadPlatoPorId(Long id) {
+	public LocalDate obtenerFechaCaducidadAlimentoPorId(Long id) {
 		return repository.findById(id).get().getFechaCaducidad();
 	}
 
 	@Override
-	public void actualizarPlato(Alimento plato) {
-		Objects.requireNonNull(plato);
+	public void actualizarAlimento(Alimento alimento) {
+		Objects.requireNonNull(alimento);
 		
-		boolean existe = repository.existsById(plato.getId());
+		boolean existe = repository.existsById(alimento.getId());
 		
 		if(!existe) {
-			throw new IllegalArgumentException("No existe un plato con el id");
+			throw new IllegalArgumentException("No existe un Alimento con el id");
 		}
 		
 	}
 
 	@Override
-	public void eliminarPlatoPorId(Long id) {
+	public void eliminarAlimentoPorId(Long id) {
 		repository.deleteById(id);
 		
 	}
 
 	@Override
-	public void eliminarPlato(Alimento plato) {
-		Objects.requireNonNull(plato);
+	public void eliminarAlimento(Alimento alimento) {
+		Objects.requireNonNull(alimento);
 		
-		repository.delete(plato);
+		repository.delete(alimento);
 		
 	}
 
 	@Override
-	public void eliminarTodosLosPlatos() {
+	public void eliminarTodosLosAlimentos() {
 		repository.deleteAll();
 	}
 
 	@Override
-	public void crearVariosPlatos(List<Alimento> comida) {
-		Objects.requireNonNull(comida);
+	public void crearVariosAlimentos(List<Alimento> alimentos) {
+		Objects.requireNonNull(alimentos);
 		
-		repository.saveAll(comida);
-		
+		repository.saveAll(alimentos);
 	}
 
 	@Override
-	public int obtenerNumeroTotalPlatos() {
+	public int obtenerNumeroTotalAlimentos() {
 		return (int) repository.count();
 	}
 
 	@Override
-	public double obtenerPrecioMininoPlato() {
-		return repository.findAll().stream().mapToDouble(p -> p.getPrecio()).min().getAsDouble();
+	public double obtenerPrecioMininoAlimento() {
+		return repository.findAll()
+				.stream()
+				.mapToDouble(p -> p.getPrecio())
+				.min()
+				.getAsDouble();
 	}
 
 	@Override
-	public double obtenerPrecioMaximoPlato() {
-		return repository.findAll().stream().mapToDouble(p -> p.getPrecio()).max().getAsDouble();
+	public double obtenerPrecioMaximoAlimento() {
+		return repository.findAll()
+				.stream()
+				.mapToDouble(p -> p.getPrecio())
+				.max()
+				.getAsDouble();
 	}
 
 	@Override
-	public List<Alimento> ordenarPlatos() {
-		return repository.findAll().stream().sorted().collect(Collectors.toList());
-		
+	public List<Alimento> ordenarAlimentos() {
+		return repository.findAll()
+				.stream()
+				.sorted()
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public List<Alimento> desordenarPlatos() {
-		return repository.findAll().stream().unordered().collect(Collectors.toList());
+	public List<Alimento> desordenarAlimentos() {
+		return repository.findAll()
+				.stream()
+				.unordered()
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public double obtenerPrecioTotalTodosPlatos() {
-		return repository.findAll().stream().mapToDouble(p -> p.getPrecio()).sum();
+	public double obtenerPrecioTotalTodosAlimentos() {
+		return repository.findAll()
+				.stream()
+				.mapToDouble(p -> p.getPrecio())
+				.sum();
 	}
 
 }
