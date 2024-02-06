@@ -37,6 +37,4 @@ public class AlimentoController {
 		
 		return alimento;
 	}
-	
-	
 }
